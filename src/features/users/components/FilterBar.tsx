@@ -2,7 +2,6 @@
 
 import { cn } from '@/lib/utils'
 import { FilterType, SortDirection, SortField } from '../types/user.types'
-import { ArrowUpDown, ChevronDown } from 'lucide-react'
 
 interface FilterBarProps {
   filterType: FilterType
@@ -12,8 +11,8 @@ interface FilterBarProps {
   onSortChange: (field: SortField) => void
 }
 
-const FILTER_OPTIONS: { label: string; value: FilterType }[] = [
-  { label: 'All Users', value: 'all' },
+const FILTER_OPTIONS: { label: string; value: FilterType; count?: number }[] = [
+  { label: 'All', value: 'all' },
   { label: 'Has Pending', value: 'hasPending' },
   { label: 'No Completed', value: 'noCompleted' },
   { label: 'Most Active', value: 'mostActive' },
@@ -34,52 +33,89 @@ export function FilterBar({
   onSortChange,
 }: FilterBarProps) {
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      {/* Filter pills */}
-      <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filter users">
-        {FILTER_OPTIONS.map((opt) => (
+    <div className="flex flex-wrap items-center gap-4 py-1">
+      {/* Filter tabs — understated ink underline style */}
+      <nav
+        className="flex items-center gap-0"
+        role="group"
+        aria-label="Filter users"
+      >
+        {FILTER_OPTIONS.map((opt, i) => (
           <button
             key={opt.value}
             onClick={() => onFilterChange(opt.value)}
-            className={cn(
-              'rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200',
-              filterType === opt.value
-                ? 'bg-[var(--color-accent)] text-white shadow-sm'
-                : 'bg-white border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-primary)]'
-            )}
             aria-pressed={filterType === opt.value}
+            className={cn(
+              'relative px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-all duration-200',
+              'focus:outline-none',
+              i !== 0 && 'border-l border-stone-200/60 dark:border-stone-700/60',
+              filterType === opt.value
+                ? 'text-stone-900 dark:text-stone-50'
+                : 'text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300'
+            )}
           >
+            {filterType === opt.value && (
+              <span
+                className="absolute bottom-0 left-4 right-4 h-[2px] bg-stone-900 dark:bg-stone-100 rounded-full"
+                aria-hidden="true"
+              />
+            )}
             {opt.label}
           </button>
         ))}
-      </div>
+      </nav>
 
-      {/* Sort select */}
-      <div className="ml-auto flex items-center gap-2">
-        <ArrowUpDown className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
-        <span className="text-xs text-[var(--color-text-muted)]">Sort by</span>
-        <div className="relative">
-          <select
-            value={sortField}
-            onChange={(e) => onSortChange(e.target.value as SortField)}
-            className="appearance-none rounded-lg border border-[var(--color-border)] bg-white py-1.5 pl-3 pr-7 text-xs font-medium text-[var(--color-text-primary)] focus:border-[var(--color-accent)] focus:outline-none cursor-pointer"
-            aria-label="Sort by field"
-          >
-            {SORT_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-          <ChevronDown className="pointer-events-none absolute right-2 top-1/2 h-3 w-3 -translate-y-1/2 text-[var(--color-text-muted)]" />
+      {/* Divider */}
+      <div className="hidden sm:block h-5 w-px bg-stone-200 dark:bg-stone-700" aria-hidden="true" />
+
+      {/* Sort — compact inline control */}
+      <div className="ml-auto flex items-center gap-3">
+        <span className="hidden sm:block text-[10px] uppercase tracking-[0.14em] text-stone-400 dark:text-stone-500 font-medium">
+          Sort
+        </span>
+        <div className="flex items-center gap-1 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 p-0.5">
+          {SORT_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => onSortChange(opt.value)}
+              className={cn(
+                'rounded-md px-2.5 py-1 text-[11px] font-medium tracking-wide transition-all duration-150',
+                sortField === opt.value
+                  ? 'bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 shadow-sm'
+                  : 'text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200'
+              )}
+            >
+              {opt.label}
+            </button>
+          ))}
         </div>
+
+        {/* Direction toggle */}
         <button
           onClick={() => onSortChange(sortField)}
-          className="rounded-lg border border-[var(--color-border)] bg-white p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
-          aria-label={`Sort direction: ${sortDirection}`}
-          title={`Sort ${sortDirection === 'asc' ? 'descending' : 'ascending'}`}
+          aria-label={`Direction: ${sortDirection === 'asc' ? 'ascending' : 'descending'}`}
+          title={`Click to sort ${sortDirection === 'asc' ? 'descending' : 'ascending'}`}
+          className={cn(
+            'flex h-7 w-7 items-center justify-center rounded-lg border transition-all duration-150',
+            'border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900',
+            'text-stone-500 dark:text-stone-400 hover:border-stone-400 dark:hover:border-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
+          )}
         >
-          <span className="text-xs font-mono">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={cn('transition-transform duration-300', sortDirection === 'desc' && 'rotate-180')}
+            aria-hidden="true"
+          >
+            <path d="M12 5v14M5 12l7-7 7 7" />
+          </svg>
         </button>
       </div>
     </div>
