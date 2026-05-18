@@ -22,7 +22,7 @@ export function ErrorState({
       </h3>
       <p className="mb-5 text-sm text-[var(--color-text-muted)]">{message}</p>
       {onRetry && (
-        <Button variant="primary" onClick={onRetry} size="sm">
+        <Button variant="default" onClick={onRetry} size="sm">
           Try again
         </Button>
       )}
