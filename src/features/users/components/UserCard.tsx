@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { EnrichedUser } from '../types/user.types'
-import { getAvatarColor, getInitials } from '@/lib/utils'
+import { getInitials } from '@/lib/utils'
 
 interface UserCardProps {
   user: EnrichedUser
