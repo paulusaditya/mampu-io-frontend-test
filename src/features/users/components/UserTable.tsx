@@ -1,5 +1,5 @@
 import { EnrichedUser, SortDirection, SortField } from '../types/user.types'
-import { UserRow } from './user-row'
+import { UserRow } from './UserRow'
 import { ChevronUp, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
