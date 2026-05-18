@@ -35,7 +35,10 @@ export function UserCard({ user, index }: UserCardProps) {
       className="block group focus:outline-none"
       style={{
         animationDelay: `${index * 0.055}s`,
-        animation: 'card-in 0.4s ease both',
+        animationName: 'card-in',
+        animationDuration: '0.4s',
+        animationTimingFunction: 'ease',
+        animationFillMode: 'both',
       }}
     >
       <style>{`
