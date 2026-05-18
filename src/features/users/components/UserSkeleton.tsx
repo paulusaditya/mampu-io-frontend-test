@@ -3,7 +3,7 @@
 function Bone({ className }: { className: string }) {
   return (
     <div
-      className={`rounded-md bg-stone-100 dark:bg-stone-800 animate-pulse ${className}`}
+      className={`rounded-md bg-slate-100 animate-pulse ${className}`}
       aria-hidden="true"
     />
   )
@@ -12,12 +12,12 @@ function Bone({ className }: { className: string }) {
 export function UsersTableSkeleton() {
   return (
     <div
-      className="overflow-hidden rounded-2xl border border-stone-200/80 dark:border-stone-700/60 bg-white dark:bg-stone-900"
+      className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white"
       aria-label="Loading users…"
       aria-busy="true"
     >
       {/* Table header */}
-      <div className="border-b border-stone-100 dark:border-stone-800 px-6 py-3.5">
+      <div className="border-b border-slate-200 px-6 py-3.5">
         <div className="flex items-center justify-between">
           <Bone className="h-3.5 w-28" />
           <Bone className="h-3.5 w-16" />
@@ -25,7 +25,7 @@ export function UsersTableSkeleton() {
       </div>
 
       {/* Rows */}
-      <div className="divide-y divide-stone-100 dark:divide-stone-800">
+      <div className="divide-y divide-slate-200">
         {Array.from({ length: 8 }).map((_, i) => (
           <div
             key={i}
@@ -72,7 +72,7 @@ export function UsersCardSkeleton() {
       {Array.from({ length: 6 }).map((_, i) => (
         <div
           key={i}
-          className="rounded-2xl border border-stone-200/80 dark:border-stone-700/60 bg-white dark:bg-stone-900 p-5 space-y-4"
+          className="rounded-2xl border border-slate-200/80 bg-white p-5 space-y-4"
           style={{ opacity: 1 - i * 0.12 }}
         >
           {/* Header */}
@@ -91,7 +91,7 @@ export function UsersCardSkeleton() {
           </div>
 
           {/* Stats */}
-          <div className="flex items-center gap-3 pt-1 border-t border-stone-100 dark:border-stone-800">
+          <div className="flex items-center gap-3 pt-1 border-t border-slate-200">
             <Bone className="h-4 w-12" />
             <Bone className="h-4 w-12" />
             <Bone className="h-4 w-12" />
