@@ -3,7 +3,7 @@
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useUserDetails } from '@/features/users/hooks/use-user-details'
-import { ErrorState } from '@/components/error-state'
+import { ErrorState } from '@/components/ErrorState'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getAvatarColor, getInitials } from '@/lib/utils'
 import {
