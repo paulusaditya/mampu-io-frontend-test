@@ -54,9 +54,9 @@ function Th({ label, field, sortField, sortDirection, onSort, className }: ThPro
         'py-3 text-left text-[10px] font-semibold uppercase tracking-[0.14em]',
         'transition-colors duration-150',
         sortable
-          ? 'cursor-pointer select-none text-stone-400 dark:text-stone-500 hover:text-stone-700 dark:hover:text-stone-200'
-          : 'text-stone-400 dark:text-stone-500',
-        active && 'text-stone-700 dark:text-stone-200',
+          ? 'cursor-pointer select-none text-slate-400 hover:text-slate-700'
+          : 'text-slate-400',
+        active && 'text-slate-900',
         className
       )}
     >
@@ -70,14 +70,14 @@ function Th({ label, field, sortField, sortDirection, onSort, className }: ThPro
 
 export function UsersTable({ users, sortField, sortDirection, onSortChange }: UsersTableProps) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-stone-200/80 dark:border-stone-700/60 bg-white dark:bg-stone-900">
+    <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white">
       <div className="overflow-x-auto">
         <table
           className="w-full border-collapse"
           aria-label="Users list"
         >
           <thead>
-            <tr className="border-b border-stone-100 dark:border-stone-800 bg-stone-50/80 dark:bg-stone-800/40">
+            <tr className="border-b border-slate-200 bg-slate-50">
               <Th
                 label="User"
                 field="name"
@@ -124,7 +124,7 @@ export function UsersTable({ users, sortField, sortDirection, onSortChange }: Us
               <tr>
                 <td
                   colSpan={6}
-                  className="py-16 text-center text-sm text-stone-400 dark:text-stone-600"
+                  className="py-16 text-center text-sm text-slate-500"
                 >
                   No users found
                 </td>
@@ -140,8 +140,8 @@ export function UsersTable({ users, sortField, sortDirection, onSortChange }: Us
 
       {/* Footer — row count */}
       {users.length > 0 && (
-        <div className="border-t border-stone-100 dark:border-stone-800 px-6 py-2.5">
-          <p className="text-[11px] text-stone-400 dark:text-stone-500 font-medium">
+        <div className="border-t border-slate-200 px-6 py-2.5">
+          <p className="text-[11px] text-slate-500 font-medium">
             {users.length} {users.length === 1 ? 'user' : 'users'}
           </p>
         </div>

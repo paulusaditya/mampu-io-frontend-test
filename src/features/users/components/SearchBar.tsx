@@ -21,8 +21,8 @@ export function SearchBar({ value, onChange, placeholder = 'Search users…' }: 
           className={cn(
             'h-3.5 w-3.5 transition-colors duration-200',
             value
-              ? 'text-stone-700 dark:text-stone-200'
-              : 'text-stone-400 dark:text-stone-500 group-focus-within:text-stone-600 dark:group-focus-within:text-stone-300'
+              ? 'text-slate-700'
+              : 'text-slate-400 group-focus-within:text-slate-600'
           )}
         />
       </div>
@@ -35,15 +35,15 @@ export function SearchBar({ value, onChange, placeholder = 'Search users…' }: 
         placeholder={placeholder}
         aria-label="Search users"
         className={cn(
-          'w-full rounded-xl border bg-white dark:bg-stone-900',
+          'w-full rounded-xl border bg-white',
           'pl-9 pr-9 py-2.5',
-          'text-sm text-stone-800 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-600',
-          'border-stone-200 dark:border-stone-700',
-          'focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:ring-0',
+          'text-sm text-slate-900 placeholder:text-slate-400',
+          'border-slate-200',
+          'focus:border-slate-400 focus:outline-none focus:ring-0',
           'transition-all duration-200',
           'font-[450] tracking-[-0.01em]',
           // Subtle bottom-border-only underline effect on focus
-          'focus:shadow-[0_1px_0_0_rgba(0,0,0,0.15)] dark:focus:shadow-[0_1px_0_0_rgba(255,255,255,0.15)]'
+          'focus:shadow-[0_1px_0_0_rgba(0,0,0,0.15)]'
         )}
       />
 
@@ -57,7 +57,7 @@ export function SearchBar({ value, onChange, placeholder = 'Search users…' }: 
         <button
           onClick={() => onChange('')}
           aria-label="Clear search"
-          className="flex h-5 w-5 items-center justify-center rounded-md text-stone-400 dark:text-stone-500 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors duration-150"
+          className="flex h-5 w-5 items-center justify-center rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors duration-150"
         >
           <X className="h-3 w-3" />
         </button>

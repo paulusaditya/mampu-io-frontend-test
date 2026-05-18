@@ -27,9 +27,9 @@ export function UserRow({ user, index }: UserRowProps) {
   return (
     <tr
       className="
-        group border-b border-stone-100 dark:border-stone-800/70
+        group border-b border-slate-200
         last:border-0 transition-colors duration-100
-        hover:bg-stone-50/70 dark:hover:bg-stone-800/40
+        hover:bg-slate-50
       "
       style={{
         animation: `row-in 0.3s ease both`,
@@ -61,10 +61,10 @@ export function UserRow({ user, index }: UserRowProps) {
             {initials}
           </div>
           <div>
-            <p className="text-[13px] font-semibold text-stone-900 dark:text-stone-50 tracking-[-0.01em] leading-tight group-hover:text-stone-600 dark:group-hover:text-stone-300 transition-colors">
+            <p className="text-[13px] font-semibold text-slate-950 tracking-[-0.01em] leading-tight group-hover:text-slate-700 transition-colors">
               {user.name}
             </p>
-            <p className="text-[11px] text-stone-400 dark:text-stone-500 font-medium">
+            <p className="text-[11px] text-slate-500 font-medium">
               @{user.username}
             </p>
           </div>
@@ -76,7 +76,7 @@ export function UserRow({ user, index }: UserRowProps) {
         <a
           href={`mailto:${user.email}`}
           onClick={(e) => e.stopPropagation()}
-          className="text-[12px] text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 transition-colors"
+          className="text-[12px] text-slate-500 hover:text-slate-800 transition-colors"
         >
           {truncate(user.email, 28)}
         </a>
@@ -89,7 +89,7 @@ export function UserRow({ user, index }: UserRowProps) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="flex items-center gap-1 text-[12px] font-mono text-stone-400 dark:text-stone-500 hover:text-stone-700 dark:hover:text-stone-300 transition-colors"
+          className="flex items-center gap-1 text-[12px] font-mono text-slate-500 hover:text-slate-700 transition-colors"
         >
           {user.website}
           <svg className="h-2.5 w-2.5 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -101,10 +101,10 @@ export function UserRow({ user, index }: UserRowProps) {
       {/* Posts */}
       <td className="hidden px-4 py-3.5 lg:table-cell">
         <div className="flex items-baseline gap-1">
-          <span className="text-[13px] font-semibold tabular-nums text-sky-600 dark:text-sky-400">
+          <span className="text-[13px] font-semibold tabular-nums text-sky-600">
             {user.postsCount}
           </span>
-          <span className="text-[10px] uppercase tracking-wider text-stone-400 dark:text-stone-500">
+          <span className="text-[10px] uppercase tracking-wider text-slate-500">
             posts
           </span>
         </div>
@@ -114,17 +114,17 @@ export function UserRow({ user, index }: UserRowProps) {
       <td className="hidden px-4 py-3.5 xl:table-cell">
         <div className="flex items-center gap-3">
           <div className="flex items-baseline gap-1">
-            <span className="text-[13px] font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
+            <span className="text-[13px] font-semibold tabular-nums text-emerald-600">
               {user.completedTodos}
             </span>
-            <span className="text-[10px] uppercase tracking-wider text-stone-400 dark:text-stone-500">done</span>
+            <span className="text-[10px] uppercase tracking-wider text-slate-500">done</span>
           </div>
-          <div className="h-2.5 w-px bg-stone-200 dark:bg-stone-700" aria-hidden="true" />
+          <div className="h-2.5 w-px bg-slate-200" aria-hidden="true" />
           <div className="flex items-baseline gap-1">
-            <span className="text-[13px] font-semibold tabular-nums text-amber-600 dark:text-amber-400">
+            <span className="text-[13px] font-semibold tabular-nums text-amber-600">
               {user.pendingTodos}
             </span>
-            <span className="text-[10px] uppercase tracking-wider text-stone-400 dark:text-stone-500">left</span>
+            <span className="text-[10px] uppercase tracking-wider text-slate-500">left</span>
           </div>
         </div>
       </td>
@@ -136,11 +136,11 @@ export function UserRow({ user, index }: UserRowProps) {
           aria-label={`View ${user.name}`}
           className="
             flex h-7 w-7 items-center justify-center rounded-lg
-            text-stone-300 dark:text-stone-600
+            text-slate-400
             border border-transparent
             transition-all duration-150
-            group-hover:border-stone-300 dark:group-hover:border-stone-600
-            group-hover:text-stone-700 dark:group-hover:text-stone-300
+            group-hover:border-slate-300
+            group-hover:text-slate-700
           "
         >
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
