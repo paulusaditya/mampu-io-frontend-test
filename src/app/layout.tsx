@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import ReactQueryProvider from '@/providers/react-query-provider'
+import ReactQueryProvider from '@/provides/react-query-provider'
 
 export const metadata: Metadata = {
   title: 'Users Dashboard',
