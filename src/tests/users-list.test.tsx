@@ -1,18 +1,18 @@
-import { describe, expect, it, jest, beforeEach } from '@jest/globals'
+import { jest } from '@jest/globals'
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import UsersPage from '@/app/users/page'
 import { EnrichedUser } from '@/features/users/types/user.types'
 
-// Mock next/navigation
 jest.mock('next/navigation', () => ({
   useRouter: () => ({ replace: jest.fn() }),
   useSearchParams: () => ({ get: () => null }),
 }))
 
-// Jest will auto-detect manual mocks from __mocks__ folder
-jest.mock('@/features/users/hooks/use-users')
+jest.mock('@/features/users/hooks/use-users', () => ({
+  useUsers: jest.fn(),
+}))
 
 const mockUsers: EnrichedUser[] = [
   {
@@ -44,9 +44,7 @@ const mockUsers: EnrichedUser[] = [
 ]
 
 import { useUsers } from '@/features/users/hooks/use-users'
-
-// Direct cast works with manual mocks
-const mockedUseUsers = useUsers as ReturnType<typeof jest.fn>
+const mockedUseUsers = jest.mocked(useUsers)
 
 function renderPage() {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } })
@@ -68,9 +66,8 @@ describe('UsersPage', () => {
       isLoading: true,
       isError: false,
       refetch: jest.fn(),
-    })
+    } as any)
     renderPage()
-    // Should not show user names
     expect(screen.queryByText('Leanne Graham')).toBeNull()
   })
 
@@ -80,7 +77,7 @@ describe('UsersPage', () => {
       isLoading: false,
       isError: true,
       refetch: jest.fn(),
-    })
+    } as any)
     renderPage()
     expect(screen.getByText(/failed to load users/i)).toBeTruthy()
   })
@@ -91,10 +88,11 @@ describe('UsersPage', () => {
       isLoading: false,
       isError: false,
       refetch: jest.fn(),
-    })
+    } as any)
     renderPage()
-    expect(screen.getByText('Leanne Graham')).toBeTruthy()
-    expect(screen.getByText('Ervin Howell')).toBeTruthy()
+    // Users appear in both table and card views, use getAllByText
+    expect(screen.getAllByText('Leanne Graham').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Ervin Howell').length).toBeGreaterThan(0)
   })
 
   it('filters users by search query', async () => {
@@ -103,12 +101,12 @@ describe('UsersPage', () => {
       isLoading: false,
       isError: false,
       refetch: jest.fn(),
-    })
+    } as any)
     renderPage()
     const searchInput = screen.getByPlaceholderText(/search users/i)
     fireEvent.change(searchInput, { target: { value: 'Leanne' } })
     await waitFor(() => {
-      expect(screen.getByText('Leanne Graham')).toBeTruthy()
+      expect(screen.getAllByText('Leanne Graham').length).toBeGreaterThan(0)
       expect(screen.queryByText('Ervin Howell')).toBeNull()
     })
   })
@@ -119,12 +117,13 @@ describe('UsersPage', () => {
       isLoading: false,
       isError: false,
       refetch: jest.fn(),
-    })
+    } as any)
     renderPage()
     const searchInput = screen.getByPlaceholderText(/search users/i)
     fireEvent.change(searchInput, { target: { value: 'zzzznonexistent' } })
     await waitFor(() => {
-      expect(screen.getByText(/no matching users/i)).toBeTruthy()
+      // EmptyState renders "No users found" when isFiltered=true
+      expect(screen.getByText(/no users found/i)).toBeTruthy()
     })
   })
 
@@ -134,13 +133,13 @@ describe('UsersPage', () => {
       isLoading: false,
       isError: false,
       refetch: jest.fn(),
-    })
+    } as any)
     renderPage()
     const filterBtn = screen.getByRole('button', { name: /has pending/i })
     fireEvent.click(filterBtn)
     await waitFor(() => {
       // Only Leanne has pending todos (5), Ervin has 0
-      expect(screen.getByText('Leanne Graham')).toBeTruthy()
+      expect(screen.getAllByText('Leanne Graham').length).toBeGreaterThan(0)
       expect(screen.queryByText('Ervin Howell')).toBeNull()
     })
   })

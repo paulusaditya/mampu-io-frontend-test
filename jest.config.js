@@ -1,4 +1,4 @@
-import nextJest from 'next/jest'
+const nextJest = require('next/jest.js')
 
 const createJestConfig = nextJest({
   dir: './',
@@ -6,12 +6,10 @@ const createJestConfig = nextJest({
 
 const customJestConfig = {
   testEnvironment: 'jsdom',
-
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 }
 
-export default createJestConfig(customJestConfig)
+module.exports = createJestConfig(customJestConfig)
