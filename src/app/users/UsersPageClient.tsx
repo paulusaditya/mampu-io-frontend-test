@@ -136,10 +136,16 @@ export default function UsersPage() {
               onSortChange={handleSortChange}
             />
           </div>
-          <p className="text-sm text-slate-500 dark:text-slate-400">{resultSummary}</p>
+          <p
+            className="text-sm text-slate-500 dark:text-slate-400"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {resultSummary}
+          </p>
         </section>
 
-        <section className="mt-6 space-y-5">
+        <section className="mt-6 space-y-5" aria-label="Users list">
           {isLoading ? (
             <>
               <div className="hidden lg:block">

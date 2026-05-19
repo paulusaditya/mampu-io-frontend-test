@@ -74,8 +74,10 @@ export function UsersTable({ users, sortField, sortDirection, onSortChange }: Us
       <div className="overflow-x-auto">
         <table
           className="w-full border-collapse"
-          aria-label="Users list"
         >
+          <caption className="sr-only">
+            Users list with name, email, website, posts, and todos activity
+          </caption>
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50">
               <Th

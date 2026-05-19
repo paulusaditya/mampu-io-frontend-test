@@ -44,10 +44,10 @@ export function UserRow({ user, index }: UserRowProps) {
       `}</style>
 
       {/* Name + username */}
-      <td className="pl-6 pr-4 py-3.5">
+      <th scope="row" className="pl-6 pr-4 py-3.5 font-normal text-left">
         <Link
           href={`/users/${user.id}`}
-          className="flex items-center gap-3 focus:outline-none focus-visible:underline"
+          className="flex items-center gap-3 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2"
         >
           <div
             className={`
@@ -69,7 +69,7 @@ export function UserRow({ user, index }: UserRowProps) {
             </p>
           </div>
         </Link>
-      </td>
+      </th>
 
       {/* Email */}
       <td className="hidden px-4 py-3.5 sm:table-cell">
@@ -141,6 +141,7 @@ export function UserRow({ user, index }: UserRowProps) {
             transition-all duration-150
             group-hover:border-slate-300
             group-hover:text-slate-700
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-1
           "
         >
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
