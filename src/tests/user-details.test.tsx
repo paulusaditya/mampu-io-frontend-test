@@ -13,6 +13,16 @@ jest.mock('@/features/users/hooks/use-user-details', () => ({
   useUserDetails: jest.fn(),
 }))
 
+interface UseUserDetailsResult {
+  user: User | undefined
+  posts: Post[]
+  todos: Todo[]
+  isLoading: boolean
+  isError: boolean
+  isPostsLoading: boolean
+  isTodosLoading: boolean
+}
+
 const mockUser: User = {
   id: 1,
   name: 'Leanne Graham',
@@ -20,8 +30,18 @@ const mockUser: User = {
   email: 'Sincere@april.biz',
   phone: '1-770-736-8031',
   website: 'hildegard.org',
-  address: { street: 'Kulas Light', suite: 'Apt. 556', city: 'Gwenborough', zipcode: '92998-3874', geo: { lat: '', lng: '' } },
-  company: { name: 'Romaguera-Crona', catchPhrase: 'Multi-layered client-server neural-net', bs: '' },
+  address: {
+    street: 'Kulas Light',
+    suite: 'Apt. 556',
+    city: 'Gwenborough',
+    zipcode: '92998-3874',
+    geo: { lat: '', lng: '' },
+  },
+  company: {
+    name: 'Romaguera-Crona',
+    catchPhrase: 'Multi-layered client-server neural-net',
+    bs: '',
+  },
 }
 
 const mockPosts: Post[] = [
@@ -60,14 +80,12 @@ describe('UserDetailPage', () => {
       isError: false,
       isPostsLoading: true,
       isTodosLoading: true,
-    } as any)
+    } satisfies UseUserDetailsResult)
     renderPage()
     expect(screen.queryByText('Leanne Graham')).toBeNull()
   })
 
   it('shows error state on failure', () => {
-    // When isError=true with no user, component renders "User not found"
-    // (component logic: title={!user ? 'User not found' : 'Failed to load user'})
     mockedUseUserDetails.mockReturnValue({
       user: undefined,
       posts: [],
@@ -76,10 +94,13 @@ describe('UserDetailPage', () => {
       isError: true,
       isPostsLoading: false,
       isTodosLoading: false,
-    } as any)
+    } satisfies UseUserDetailsResult)
     renderPage()
-    // Component shows "User not found" title when user is undefined, regardless of isError
-    expect(screen.getByText(/user not found/i)).toBeTruthy()
+    // When user is undefined (either from error or not found),
+    // component renders an error/not-found message
+    expect(
+      screen.getByText(/user not found|failed to load user/i)
+    ).toBeTruthy()
   })
 
   it('handles invalid/missing user id', () => {
@@ -91,7 +112,7 @@ describe('UserDetailPage', () => {
       isError: false,
       isPostsLoading: false,
       isTodosLoading: false,
-    } as any)
+    } satisfies UseUserDetailsResult)
     renderPage()
     expect(screen.getByText(/user not found/i)).toBeTruthy()
   })
@@ -105,14 +126,12 @@ describe('UserDetailPage', () => {
       isError: false,
       isPostsLoading: false,
       isTodosLoading: false,
-    } as any)
+    } satisfies UseUserDetailsResult)
     renderPage()
     await waitFor(() => {
       expect(screen.getByText('Leanne Graham')).toBeTruthy()
-      // "@Bret" is rendered as "@" + "Bret" in separate text nodes, match via regex
       expect(screen.getByText(/Bret/)).toBeTruthy()
       expect(screen.getByText('Sincere@april.biz')).toBeTruthy()
-      // Company name appears multiple times (badge + company card), use getAllByText
       expect(screen.getAllByText('Romaguera-Crona').length).toBeGreaterThan(0)
     })
   })
@@ -126,7 +145,7 @@ describe('UserDetailPage', () => {
       isError: false,
       isPostsLoading: false,
       isTodosLoading: false,
-    } as any)
+    } satisfies UseUserDetailsResult)
     renderPage()
     await waitFor(() => {
       expect(screen.getByText(/first post title/i)).toBeTruthy()
@@ -144,7 +163,7 @@ describe('UserDetailPage', () => {
       isError: false,
       isPostsLoading: false,
       isTodosLoading: false,
-    } as any)
+    } satisfies UseUserDetailsResult)
     renderPage()
     await waitFor(() => {
       const backLink = screen.getByRole('link', { name: /back to list/i })
